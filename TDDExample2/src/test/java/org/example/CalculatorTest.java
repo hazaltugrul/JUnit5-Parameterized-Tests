@@ -9,28 +9,20 @@
 package org.example;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import org.junit.jupiter.params.provider.CsvSource;
+import static org.junit.jupiter.api.Assertions.*;
 class CalculatorTest {
-
     @ParameterizedTest
-    @MethodSource("divisionTestCases")
+    @CsvSource({
+            "10, 2, 5",
+            "10, 4, 2.5",
+            "12.5, 2.5, 5",
+            "10, 2.5, 4",
+            "12.5, 5, 2.5"
+        })
     void testDivision(float dividend, float divisor, float expected) {
         assertEquals(expected, Calculator.divide(dividend, divisor));
     }
-
-    private static Object[][] divisionTestCases() {
-        return new Object[][] {
-                {10f, 2f, 5f},
-                {10f, 4f, 2.5f},
-                {12.5f, 2.5f, 5f},
-                {10f, 2.5f, 4f},
-                {12.5f, 5f, 2.5f}
-        };
-    }
-
     @Test
     void testDivision6() {
         Exception exception = assertThrows(
