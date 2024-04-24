@@ -46,14 +46,16 @@ The project contains two versions:
   ```
 - **New Version:** In the new version, parameterized tests are used to perform tests with different input sets on the same test method.
   ``` java
-  private static Object[][] divisionTestCases() {
-    return new Object[][] {
-            {10f, 2f, 5f},
-            {10f, 4f, 2.5f},
-            {12.5f, 2.5f, 5f},
-            {10f, 2.5f, 4f},
-            {12.5f, 5f, 2.5f}
-    };
-  }
+   @ParameterizedTest
+    @CsvSource({
+            "10, 2, 5",
+            "10, 4, 2.5",
+            "12.5, 2.5, 5",
+            "10, 2.5, 4",
+            "12.5, 5, 2.5"
+        })
+    void testDivision(float dividend, float divisor, float expected) {
+        assertEquals(expected, Calculator.divide(dividend, divisor));
+    }
   ```
   
